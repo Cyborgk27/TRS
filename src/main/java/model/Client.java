@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.time.Instant;
@@ -12,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 /**
  *
- * @author VIAMATICA
+ * @author CyborgK27
  */
 @AllArgsConstructor
 public @Data class Client extends User{
