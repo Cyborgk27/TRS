@@ -18,8 +18,7 @@ public @Data class Client extends User{
         paymentMethods = new ArrayList<>();
     }
 
-    public Client(String cellphone, int userId, String userName, String userEmail, String userPassword) {
-        super(userId, userName, userEmail, userPassword);
+    public Client(String cellphone) {
         this.cellphone = cellphone;
     }
     

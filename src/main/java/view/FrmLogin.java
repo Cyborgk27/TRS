@@ -1,23 +1,26 @@
 package view;
 
 import controller.ClientController;
+import javax.swing.JOptionPane;
+import model.TRSContext;
 
 /**
  *
  * @author CyborgK27
  */
 public class FrmLogin extends javax.swing.JFrame {
-
     ClientController clientController = new ClientController();
     
     public FrmLogin() {
         initComponents();
+        lblNumber.setText(TRSContext.clients.size()+"");
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel4 = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -27,6 +30,10 @@ public class FrmLogin extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         lblRegister = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblNumber = new javax.swing.JLabel();
+
+        jLabel4.setText("jLabel4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,6 +60,10 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Clients");
+
+        lblNumber.setText("NUMBER");
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -61,13 +72,17 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPassword)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtPassword)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel5))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(contentLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -75,9 +90,12 @@ public class FrmLogin extends javax.swing.JFrame {
                             .addGroup(contentLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblRegister))))
-                    .addComponent(jLabel5))
-                .addContainerGap(399, Short.MAX_VALUE))
+                                .addComponent(lblRegister)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNumber)
+                        .addGap(83, 83, 83))))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +115,9 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(lblRegister))
+                    .addComponent(lblRegister)
+                    .addComponent(jLabel6)
+                    .addComponent(lblNumber))
                 .addGap(24, 24, 24))
         );
 
@@ -119,17 +139,17 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String email = txtEmail.getText();
         String password = new String(txtPassword.getPassword());
-        clientController.loginUser(email, password);
+        if(clientController.loginUser(email, password)){
+            sendToClientDashboard();
+        }else{
+            JOptionPane.showMessageDialog(null, "Credenciales incorrectas");
+        }
+        
+        System.out.println(email+" "+password);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void lblRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegisterMouseClicked
-        var frm = new FrmRegister();
-        frm.setSize(720,360);
-        
-        content.removeAll();
-        content.add(frm);
-        content.revalidate();
-        content.repaint();
+        sentToRegister();
     }//GEN-LAST:event_lblRegisterMouseClicked
 
     /**
@@ -174,9 +194,32 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lblNumber;
     private javax.swing.JLabel lblRegister;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+
+    private void sentToRegister() {
+        var frm = new FrmRegister();
+        frm.setSize(720,360);
+        
+        content.removeAll();
+        content.add(frm);
+        content.revalidate();
+        content.repaint();
+    }
+
+    private void sendToClientDashboard() {
+        var frm = new FrmClient();
+        frm.setSize(720,360);
+        
+        content.removeAll();
+        content.add(frm);
+        content.revalidate();
+        content.repaint();
+    }
 }

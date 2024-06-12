@@ -8,8 +8,7 @@ import lombok.Data;
  * @author CyborgK27
  */
 @AllArgsConstructor
-public @Data
-class User {
+public @Data class User {
 
     public User() {
 
@@ -19,18 +18,23 @@ class User {
     private String userEmail;
     private String userPassword;
 
-    public boolean registerUser(Client client) {
-        TRSContext.clients.add(client);
+    public boolean registerUser(User user) {
+        TRSContext.users.add(user);
         System.out.println("se registro el client");
+        System.out.println("Lista: "+TRSContext.users.toString());
+        System.out.println(user.toString());
         return true;
     }
+    
 
     public boolean loginUser(String email, String password) {
-        for (Client client : TRSContext.clients) {
-            if(email.equals(client.getUserEmail()) && password.equals(client.getUserPassword())){
+        for (User user : TRSContext.users) {
+            if(user.getUserEmail().equals(email) && user.getUserPassword().equals(password)){
+                System.out.println("sesion iniciada");
                 return true;
             }
         }
         return false;
     }
+    
 }

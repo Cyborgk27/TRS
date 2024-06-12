@@ -1,6 +1,7 @@
 package view;
 
 import controller.ClientController;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -148,7 +149,7 @@ public class FrmRegister extends javax.swing.JPanel {
         if(!password.equals(confirmPassword)){
             System.out.println("Las contraseñas no coinciden");
         }
-        clientController.registerUser(name, email, password, cellphone);
+        clientController.registerUser(name, email, password);
         backToLogin();
         
     }//GEN-LAST:event_btnRegisterActionPerformed
