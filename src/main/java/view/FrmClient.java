@@ -16,7 +16,7 @@ import model.Travel;
  */
 public class FrmClient extends javax.swing.JPanel {
 
-    ClientController clientController = new ClientController();
+    //ClientController clientController = new ClientController();
     
     public FrmClient() {
         
@@ -166,56 +166,56 @@ public class FrmClient extends javax.swing.JPanel {
 
     private void fillDashboardWithUserClient(int userId) {
         System.out.println("FORMULARIO");
-        lblNameUser.setText(clientController.getByIdUser(userId).getUserName() + "");
+        //lblNameUser.setText(clientController.getByIdUser(userId).getUserName() + "");
 
     }
 
     private void fillTableTravels(JTable tblReservations) {
-        var listTravel = clientController.searchTravels();
-
-        // Crear un modelo de tabla
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Destino");
-        model.addColumn("Fecha");
-
-        // Llenar el modelo con los datos de los viajes
-        for (Travel travel : listTravel) {
-            model.addRow(new Object[]{
-                travel.getTravelId(),
-                travel.getDestiny(),
-                travel.getTravelDate()
-            });
-        }
-
-        // Asignar el modelo a la tabla
-        tblReservations.setModel(model);
+//        // listTravel = clientController.searchTravels();
+//
+//        // Crear un modelo de tabla
+//        DefaultTableModel model = new DefaultTableModel();
+//        model.addColumn("ID");
+//        model.addColumn("Destino");
+//        model.addColumn("Fecha");
+//
+//        // Llenar el modelo con los datos de los viajes
+//        for (Travel travel : listTravel) {
+//            model.addRow(new Object[]{
+//                travel.getTravelId(),
+//                travel.getDestiny(),
+//                travel.getTravelDate()
+//            });
+//        }
+//
+//        // Asignar el modelo a la tabla
+//        tblReservations.setModel(model);
     }
     
     private void fillTableWithReservations(JTable tblGeneric, int userId) {
-        var listReservations = clientController.getReservations();
-
-        // Crear un modelo de tabla
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Creado");
-        model.addColumn("Estado");
-        model.addColumn("Destino");
-
-        // Llenar el modelo con los datos de los viajes
-        for (Reservation reservation : listReservations) {
-            if (reservation.getClientId() == userId) {
-                model.addRow(new Object[]{
-                    reservation.getReservationId(),
-                    reservation.getReservationDate(),
-                    reservation.getState(),
-                    reservation.getTravel().getDestiny(),});
-            }
-
-        }
-
-        // Asignar el modelo a la tabla
-        tblGeneric.setModel(model);
+//        var listReservations = clientController.getReservations();
+//
+//        // Crear un modelo de tabla
+//        DefaultTableModel model = new DefaultTableModel();
+//        model.addColumn("ID");
+//        model.addColumn("Creado");
+//        model.addColumn("Estado");
+//        model.addColumn("Destino");
+//
+//        // Llenar el modelo con los datos de los viajes
+//        for (Reservation reservation : listReservations) {
+//            if (reservation.getClientId() == userId) {
+//                model.addRow(new Object[]{
+//                    reservation.getReservationId(),
+//                    reservation.getReservationDate(),
+//                    reservation.getState(),
+//                    reservation.getTravel().getDestiny(),});
+//            }
+//
+//        }
+//
+//        // Asignar el modelo a la tabla
+//        tblGeneric.setModel(model);
     }
 
     private void reloadwindows() {

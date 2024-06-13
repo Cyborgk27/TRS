@@ -1,19 +1,18 @@
 package view;
 
 import controller.ClientController;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import model.TRSContext;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
  * @author CyborgK27
  */
 public class FrmLogin extends javax.swing.JFrame {
-    ClientController clientController = new ClientController();
     
     public FrmLogin() {
-        initComponents();
-        lblNumber.setText(TRSContext.clients.size()+"");
     }
     
     @SuppressWarnings("unchecked")
@@ -137,23 +136,42 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String email = txtEmail.getText();
-        String password = new String(txtPassword.getPassword());
-//        if(clientController.loginUser(email, password) == 0){
-//            sendToClientDashboard();
+//        String email = txtEmail.getText();
+//        String password = new String(txtPassword.getPassword());
+//        var userId = clientController.loginUser(email, password);
+//        
+//        if(userId != 0){
+//            sendToClientDashboard(userId);
 //        }else{
 //            JOptionPane.showMessageDialog(null, "Credenciales incorrectas");
 //        }
-        var userId = clientController.loginUser(email, password);
-        
-        if(userId != 0){
-            sendToClientDashboard(userId);
-        }else{
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas");
-        }
-        
-        System.out.println(email+" "+password);
+//        
+//        System.out.println(email+" "+password);
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    public JButton getBtnLogin() {
+        return btnLogin;
+    }
+
+    public void setBtnLogin(JButton btnLogin) {
+        this.btnLogin = btnLogin;
+    }
+
+    public JTextField getTxtEmail() {
+        return txtEmail;
+    }
+
+    public void setTxtEmail(JTextField txtEmail) {
+        this.txtEmail = txtEmail;
+    }
+
+    public JPasswordField getTxtPassword() {
+        return txtPassword;
+    }
+
+    public void setTxtPassword(JPasswordField txtPassword) {
+        this.txtPassword = txtPassword;
+    }
 
     private void lblRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegisterMouseClicked
         sentToRegister();
@@ -196,7 +214,7 @@ public class FrmLogin extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin;
+    public javax.swing.JButton btnLogin;
     public javax.swing.JPanel content;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -206,8 +224,8 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lblNumber;
     private javax.swing.JLabel lblRegister;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JPasswordField txtPassword;
+    public javax.swing.JTextField txtEmail;
+    public javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
     private void sentToRegister() {
