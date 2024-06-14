@@ -33,7 +33,7 @@ public class TravelRepository implements ITravelRepository {
     @Override
     public boolean createTravel(Travel travel) {
         PreparedStatement ps = null;
-        String sql = "INSERT INTO Travels(DepartureDate, ReturnsDate, Prices, AvaliableSeats) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO Travels(DepartureDate, ReturnDate, Prices, AvaliableSeats) VALUES(?, ?, ?, ?)";
         try {
             ps = cx.connect().prepareStatement(sql);
             ps.setDate(1, converDateToSqlDate(travel.getTravelDate()));
@@ -51,51 +51,100 @@ public class TravelRepository implements ITravelRepository {
 
     @Override
     public List<Travel> getAllTravels() {
-    List<Travel> listTravels = new ArrayList<>();
-    String sql = "SELECT TravelId, Destination, DepartureDate, ReturnsDate, Prices, AvailableSeats FROM Travels";
+        List<Travel> listTravels = new ArrayList<>();
+        String sql = "SELECT TravelId, Destination, DepartureDate, ReturnDate, Prices, AvailableSeats FROM Travels";
 
-    try {
-        PreparedStatement ps = cx.connect().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery(); // Ejecutar la consulta
+        try {
+            PreparedStatement ps = cx.connect().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery(); // Ejecutar la consulta
 
-        while (rs.next()) {
-            // Crear objetos Travel y llenarlos con los datos del resultado
-            int travelId = rs.getInt("TravelId");
-            String Destiny = rs.getString("Destination");
-            Date departureDate = rs.getDate("DepartureDate");
-            Date returnsDate = rs.getDate("ReturnsDate");
-            float prices = rs.getFloat("Prices");
-            int availableSeats = rs.getInt("AvailableSeats");
+            while (rs.next()) {
+                // Crear objetos Travel y llenarlos con los datos del resultado
+                int travelId = rs.getInt("TravelId");
+                String destiny = rs.getString("Destination");
+                Date departureDate = rs.getDate("DepartureDate");
+                Date returnDate = rs.getDate("ReturnDate");
+                float prices = rs.getFloat("Prices");
+                int availableSeats = rs.getInt("AvailableSeats");
 
-            Travel travel = new Travel(travelId, Destiny,departureDate, returnsDate, prices, availableSeats);
-            listTravels.add(travel);
+                Travel travel = new Travel(travelId, destiny, departureDate, returnDate, prices, availableSeats);
+                listTravels.add(travel);
+            }
+            return listTravels;
+        } catch (SQLException e) {
+            System.out.println("FAILED LIST" + e);
+            e.printStackTrace();
+            return null;
         }
-        return listTravels;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return null;
     }
-}
-
 
     @Override
     public Travel getByIdTravel(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT TravelId, Destination, DepartureDate, ReturnDate, Prices, AvailableSeats FROM Travel WHERE TravelId = ?";
+
+        try {
+            PreparedStatement ps = cx.connect().prepareStatement(sql);
+            ps.setInt(1, id); // Establecer el valor del parámetro
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int travelId = rs.getInt("TravelId");
+                String destination = rs.getString("Destination");
+                Date departureDate = rs.getDate("DepartureDate");
+                Date returnsDate = rs.getDate("ReturnDate");
+                float prices = rs.getFloat("Prices");
+                int availableSeats = rs.getInt("AvailableSeats");
+
+                return new Travel(travelId, destination, departureDate, returnsDate, prices, availableSeats);
+            } else {
+                return null; // No se encontró ningún viaje con el ID especificado
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR GET TRAVEL BY ID");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public boolean updateTravel(Travel travel) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "UPDATE Travel SET Destination = ?, DepartureDate = ?, ReturnsDate = ?, Prices = ?, AvailableSeats = ? WHERE TravelId = ?";
+
+        try {
+            PreparedStatement ps = cx.connect().prepareStatement(sql);
+            ps.setString(1, travel.getDestiny());
+            ps.setDate(2, converDateToSqlDate(travel.getTravelDate()));
+            ps.setDate(3, converDateToSqlDate(travel.getReturnDate()));
+            ps.setFloat(4, travel.getTravelPrice());
+            ps.setInt(5, travel.getPlacesAvaliable());
+            ps.setInt(6, travel.getTravelId());
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0; // Devuelve true si al menos una fila fue actualizada
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean removeTravel(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM Travel WHERE TravelId = ?";
+
+        try {
+            PreparedStatement ps = cx.connect().prepareStatement(sql);
+            ps.setInt(1, id); // Establecer el valor del parámetro
+            int rowsDeleted = ps.executeUpdate();
+
+            return rowsDeleted > 0; // Devuelve true si al menos una fila fue eliminada
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private Date converDateToSqlDate(java.util.Date dateJavaa) {
         java.sql.Date dateConvert = new java.sql.Date(dateJavaa.getTime());
         return dateConvert;
     }
-
 }
