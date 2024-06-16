@@ -1,11 +1,11 @@
 package main;
 
-import controller.ClientController;
-import interfaces.IClientRepository;
-import repostiory.ClientRepository;
-import view.FrmLogin;
-import view.FrmTRS;
-import view.JPClient;
+import controller.TravelController;
+import interfaces.ITravelRepository;
+import model.Travel;
+import repostiory.TravelRepository;
+import view.FrmTravel;
+
 
 /**
  *
@@ -13,10 +13,10 @@ import view.JPClient;
  */
 public class TRS {
     public static void main(String[] args) {
-        FrmTRS view = new FrmTRS();
-        IClientRepository clientRepository = new ClientRepository();
-        ClientController clientController = new ClientController(view, clientRepository);
-        
+        Travel t = new Travel();
+        FrmTravel view = new FrmTravel();
+        ITravelRepository travelRepository = new TravelRepository();
+        TravelController travelController = new TravelController(view, travelRepository);
         view.setVisible(true);
     }
 }
