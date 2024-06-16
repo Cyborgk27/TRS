@@ -3,35 +3,43 @@ package connectionDb;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 /**
+ * Clase que se encarga de la conexión a la base de datos.
+ * Proporciona métodos para conectar y desconectar.
  *
  * @author CyborgK27
  */
-public class DatabaseConnect  {
-    Connection cx = null;
-    
-    public Connection connect(){
+public class DatabaseConnect {
+    private Connection cx = null;
+
+    /**
+     * Conecta a la base de datos.
+     * 
+     * @return Connection La conexión establecida.
+     */
+    public Connection connect() {
         try {
             Class.forName("org.sqlite.JDBC");
             cx = DriverManager.getConnection("jdbc:sqlite:trs.db");
             System.out.println("Success connection");
         } catch (ClassNotFoundException | SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex);
         }
         return cx;
     }
-    
-    public void disconnect(){
+
+    /**
+     * Desconecta de la base de datos.
+     */
+    public void disconnect() {
         try {
-            cx.close();
+            if (cx != null && !cx.isClosed()) {
+                cx.close();
+                System.out.println("Disconnected successfully");
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-    
-    public static void main(String[] args) {
-        DatabaseConnect dbconnect = new DatabaseConnect();
-        dbconnect.connect();
-        
     }
 }

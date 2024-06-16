@@ -1,42 +1,44 @@
-package repostiory;
+package repository;
 
 import connectionDb.DatabaseConnect;
 import interfaces.ITravelRepository;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Travel;
 
 /**
- *
- * @author VIAMATICA
+ * Clase repositorio para gestionar los datos de viajes en la base de datos.
+ * Implementa la interfaz ITravelRepository.
+ * 
+ * @autor CyborgK27
  */
 public class TravelRepository implements ITravelRepository {
 
-    private final DatabaseConnect cx;
+    final DatabaseConnect cx;
 
+    /**
+     * Construye un TravelRepository con una conexión a la base de datos.
+     */
     public TravelRepository() {
         this.cx = new DatabaseConnect();
     }
 
-    /*
-        @params createTravel
-        @return boolean
+    /**
+     * Crea una nueva entrada de viaje en la base de datos.
+     *
+     * @param travel El objeto Travel que contiene los detalles del viaje.
+     * @return boolean True si el viaje se creó con éxito, false en caso
+     * contrario.
      */
     @Override
     public boolean createTravel(Travel travel) {
         PreparedStatement ps = null;
-        String sql = "INSERT INTO trips( destination, departure_date, return_date, price, avaliable_seats) VALUES( ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO trips(destination, departure_date, return_date, price, avaliable_seats) VALUES(?, ?, ?, ?, ?)";
         try {
             ps = cx.connect().prepareStatement(sql);
             ps.setString(1, travel.getDestiny());
@@ -48,11 +50,16 @@ public class TravelRepository implements ITravelRepository {
             cx.disconnect();
             return true;
         } catch (Exception e) {
-            System.out.println("CREATE FAILED" + e);
+            System.out.println("CREATE FAILED: " + e);
             return false;
         }
     }
 
+    /**
+     * Recupera todas las entradas de viaje de la base de datos.
+     *
+     * @return List<Travel> Una lista de todos los objetos Travel.
+     */
     @Override
     public List<Travel> getAllTravels() {
         List<Travel> listTravels = new ArrayList<>();
@@ -64,7 +71,7 @@ public class TravelRepository implements ITravelRepository {
 
             while (rs.next()) {
                 // Crear objetos Travel y llenarlos con los datos del resultado
-                int travelId = rs.getInt("Id");
+                int travelId = rs.getInt("id");
                 String destiny = rs.getString("destination");
                 java.util.Date departureDate = convertStringToDate(rs.getString("departure_date"));
                 java.util.Date returnDate = convertStringToDate(rs.getString("return_date"));
@@ -81,6 +88,12 @@ public class TravelRepository implements ITravelRepository {
         }
     }
 
+    /**
+     * Recupera una entrada de viaje por su ID.
+     *
+     * @param id El ID del viaje a recuperar.
+     * @return Travel El objeto Travel con el ID especificado, o null si no se encuentra.
+     */
     @Override
     public Travel getByIdTravel(int id) {
         String sql = "SELECT id, destination, departure_date, return_date, price, avaliable_seats FROM trips WHERE id = ?";
@@ -94,10 +107,10 @@ public class TravelRepository implements ITravelRepository {
                 int travelId = rs.getInt("id");
                 String destination = rs.getString("destination");
                 java.util.Date departureDate = convertStringToDate(rs.getString("departure_date"));
-                java.util.Date returnsDate = convertStringToDate(rs.getString("return_date"));
+                java.util.Date returnDate = convertStringToDate(rs.getString("return_date"));
                 float prices = rs.getFloat("price");
                 int availableSeats = rs.getInt("avaliable_seats");
-                newTravel = new Travel(travelId, destination, departureDate, returnsDate, prices, availableSeats);
+                newTravel = new Travel(travelId, destination, departureDate, returnDate, prices, availableSeats);
                 cx.disconnect();
             } else {
                 return null; // No se encontró ningún viaje con el ID especificado
@@ -110,6 +123,12 @@ public class TravelRepository implements ITravelRepository {
         return newTravel;
     }
 
+    /**
+     * Actualiza una entrada de viaje en la base de datos.
+     *
+     * @param travel El objeto Travel que contiene los detalles del viaje actualizados.
+     * @return boolean True si el viaje se actualizó con éxito, false en caso contrario.
+     */
     @Override
     public boolean updateTravel(Travel travel) {
         String sql = "UPDATE trips SET destination = ?, departure_date = ?, return_date = ?, price = ?, avaliable_seats = ? WHERE id = ?";
@@ -124,7 +143,8 @@ public class TravelRepository implements ITravelRepository {
             ps.setInt(6, travel.getTravelId());
             int rowsUpdated = ps.executeUpdate();
             System.out.println(rowsUpdated);
-            return rowsUpdated > 0; // Devuelve true si al menos una fila fue actualizada
+            return rowsUpdated > 0; // Devuelve true si al menos una
+            //fila fue actualizada
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -132,6 +152,13 @@ public class TravelRepository implements ITravelRepository {
         }
     }
 
+    /**
+     * Elimina una entrada de viaje de la base de datos por su ID.
+     *
+     * @param id El ID del viaje a eliminar.
+     * @return boolean True si el viaje se eliminó con éxito, false
+     * en caso contrario.
+     */
     @Override
     public boolean removeTravel(int id) {
         String sql = "DELETE FROM trips WHERE id = ?";
@@ -141,19 +168,34 @@ public class TravelRepository implements ITravelRepository {
             ps.setInt(1, id); // Establecer el valor del parámetro
             int rowsDeleted = ps.executeUpdate();
             cx.disconnect();
-            return rowsDeleted > 0; // Devuelve true si al menos una fila fue eliminada
+            return rowsDeleted > 0; // Devuelve true si al menos
+            //una fila fue eliminada
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public String converDateToString(java.util.Date returnDate) {
+    /**
+     * Convierte un objeto Date a su representación en String.
+     *
+     * @param date El objeto Date a convertir.
+     * @return String La representación en String de la fecha.
+     */
+    public String converDateToString(java.util.Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(returnDate);
+        return dateFormat.format(date);
     }
 
-    public java.util.Date convertStringToDate(String dateString) throws ParseException {
+    /**
+     * Convierte una representación en String de una fecha a un objeto Date.
+     *
+     * @param dateString La representación en String de la fecha.
+     * @return java.util.Date El objeto Date.
+     * @throws ParseException Si la cadena de fecha no se puede analizar.
+     */
+    public java.util.Date convertStringToDate(String dateString) 
+            throws ParseException {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         return dateFormat.parse(dateString);

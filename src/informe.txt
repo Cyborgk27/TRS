@@ -1,0 +1,28 @@
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\connectionDb\DatabaseConnect.java:1:	PackageCase:	Package name contains upper case characters
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\controller\TravelController.java:54:	UncommentedEmptyMethodBody:	Document empty method body
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\controller\TravelController.java:64:	LiteralsFirstInComparisons:	Position literals first in String comparisons
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\controller\TravelController.java:106:	LocalVariableNamingConventions:	The local variable name 'DATE_FORMAT' doesn't match '[a-z][a-zA-Z0-9]*'
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\controller\TravelController.java:129:	LocalVariableNamingConventions:	The local variable name 'departure_date' doesn't match '[a-z][a-zA-Z0-9]*'
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\controller\TravelController.java:130:	LocalVariableNamingConventions:	The local variable name 'return_date' doesn't match '[a-z][a-zA-Z0-9]*'
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\controller\TravelController.java:132:	LocalVariableNamingConventions:	The local variable name 'avaliable_seats' doesn't match '[a-z][a-zA-Z0-9]*'
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\main\TRS.java:17:	UseUtilityClass:	This utility class has a non-private constructor
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\main\TRS.java:24:	UnusedLocalVariable:	Avoid unused local variables such as 't'.
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\main\TRS.java:31:	UnusedLocalVariable:	Avoid unused local variables such as 'travelController'.
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\model\Travel.java:34:	UnnecessaryConstructor:	Avoid unnecessary constructors - the compiler will generate these for you
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\model\Travel.java:34:	UncommentedEmptyConstructor:	Document empty constructor
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\repostiory\TravelRepository.java:39:	CloseResource:	Ensure that resources like this PreparedStatement object are closed after use
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\repostiory\TravelRepository.java:68:	CloseResource:	Ensure that resources like this PreparedStatement object are closed after use
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\repostiory\TravelRepository.java:69:	CloseResource:	Ensure that resources like this ResultSet object are closed after use
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\repostiory\TravelRepository.java:86:	ReturnEmptyCollectionRatherThanNull:	Return an empty collection rather than null.
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\repostiory\TravelRepository.java:101:	CloseResource:	Ensure that resources like this PreparedStatement object are closed after use
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\repostiory\TravelRepository.java:103:	CloseResource:	Ensure that resources like this ResultSet object are closed after use
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\repostiory\TravelRepository.java:136:	CloseResource:	Ensure that resources like this PreparedStatement object are closed after use
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\repostiory\TravelRepository.java:166:	CloseResource:	Ensure that resources like this PreparedStatement object are closed after use
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\view\FrmTravel.java:47:	UnnecessaryFullyQualifiedName:	Unnecessary qualifier 'javax.swing.WindowConstants': 'EXIT_ON_CLOSE' is already in scope because it is inherited by an enclosing type
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\view\FrmTravel.java:56:	MissingOverride:	The method 'actionPerformed(ActionEvent)' is missing an @Override annotation.
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\view\FrmTravel.java:81:	MissingOverride:	The method 'actionPerformed(ActionEvent)' is missing an @Override annotation.
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\view\FrmTravel.java:88:	LocalVariableNamingConventions:	The local variable name 'ContentLayout' doesn't match '[a-z][a-zA-Z0-9]*'
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\view\FrmTravel.java:154:	UnusedFormalParameter:	Avoid unused method parameters such as 'evt'.
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\view\FrmTravel.java:158:	UnusedFormalParameter:	Avoid unused method parameters such as 'evt'.
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\view\FrmTravel.java:195:	SingularField:	Perhaps 'Content' could be replaced by a local variable.
+C:\Users\CyborgK27\Documents\NetBeansProjects\TRS\src\main\java\view\FrmTravel.java:201:	SingularField:	Perhaps 'jScrollPane1' could be replaced by a local variable.
