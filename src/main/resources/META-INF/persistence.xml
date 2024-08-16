@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence">
+  <persistence-unit name="persistence">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>com.cepeda.trsv2.model.entities.Role</class>
+    <class>com.cepeda.trsv2.model.entities.User</class>
+    <class>com.cepeda.trsv2.model.entities.Travel</class>
+    <properties>
+      <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:trs.db"/>
+      <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>
